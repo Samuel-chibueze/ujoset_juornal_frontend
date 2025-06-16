@@ -8,7 +8,7 @@ import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Academic Journal System',
+  title: 'ujoset Academic Journals',
   description: 'A platform for submitting and reviewing academic journals',
 };
 

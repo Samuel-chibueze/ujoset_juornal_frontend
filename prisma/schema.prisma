@@ -1,12 +1,19 @@
-// schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite" // change to "postgresql" or "mysql" as needed
+  provider = "sqlite" // Use "postgresql" or "mysql" for production
   url      = env("DATABASE_URL")
+}
+
+enum ArticleStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  PUBLISHED
 }
 
 model User {
@@ -18,10 +25,9 @@ model User {
   password      String
   role          String    @default("PUBLISHER")
 
-  accounts Account[]
-  sessions Session[]
-  journals Journal[] @relation("PublisherJournals")
-  payments Payment[]
+  accounts  Account[]
+  sessions  Session[]
+  articles  Article[]    @relation("PublisherArticles")
 }
 
 model Account {
@@ -52,35 +58,61 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-enum JournalStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
 model Journal {
-  id          String        @id @default(uuid())
-  title       String
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
   description String?
-  imageUrl    String
-  pdfUrl      String
-  abstract    String
-  status      JournalStatus @default(PENDING)
-  publishedAt DateTime?
-  createdAt   DateTime      @default(now())
-  publisherId String
-  publisher   User          @relation("PublisherJournals", fields: [publisherId], references: [name])
-  payments    Payment[]
+  issn        String?  @unique
+  volumes     Volume[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-model Payment {
-  id        String   @id @default(uuid())
-  amount    Float
-  currency  String   @default("USD")
-  status    String   @default("pending")
-  createdAt DateTime @default(now())
-  userId    String
-  journalId String
-  user      User     @relation(fields: [userId], references: [id])
-  journal   Journal  @relation(fields: [journalId], references: [id])
+model Volume {
+  id         String   @id @default(uuid())
+  number     Int
+  year       Int
+  journalId  String
+  journal    Journal  @relation(fields: [journalId], references: [id], onDelete: Cascade)
+  issues     Issue[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([journalId, number])
+}
+
+model Issue {
+  id         String   @id @default(uuid())
+  number     Int
+  title      String?
+  month      Int?
+  volumeId   String
+  volume     Volume   @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+  articles   Article[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([volumeId, number])
+}
+
+model Article {
+  id              String        @id @default(uuid())
+  title           String
+  slug            String        @unique
+  authors         String
+  abstract        String?
+  fileUrl         String
+  status          ArticleStatus @default(DRAFT)
+  paymentProof    String?
+  paymentVerified Boolean       @default(false)
+  issueId         String?       // ❗️ Make this optional
+  issue           Issue?        @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  publisherId     String
+  publisher       User          @relation("PublisherArticles", fields: [publisherId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
 }

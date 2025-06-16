@@ -152,9 +152,9 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold mb-12">Our Editorial Team</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { name: "Dr. Sarah Johnson", title: "Editor-in-Chief" },
-                  { name: "Prof. Michael Chen", title: "Senior Editor" },
-                  { name: "Dr. Emily Brown", title: "Managing Editor" },
+                  { name: "Ass. Prof. Peter Neji Amba", title: "Editor-in-Chief" },
+                  { name: "Dr. Victor .E. Okpashi", title: "secretary" },
+                  { name: "Prof. Eko J. Akpama", title: "Managing Editor" },
                 ].map((member, index) => (
                   <div key={index} className="text-center">
                     <div className="w-24 h-24 rounded-full bg-primary/10 mx-auto mb-4 flex items-center justify-center">

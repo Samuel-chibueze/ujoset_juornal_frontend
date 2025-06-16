@@ -1,0 +1,123 @@
+// // 🎯 Frontend Structure (Pages)
+// 1. 🏠 Homepage /
+// Goal: Let users explore journals or submit articles
+
+// Sections:
+// Hero: “Publish Your Academic Work Today”
+
+// Search Bar: “Search articles, authors, topics…”
+
+// Browse Journals (link to /journals)
+
+// Latest Articles (from all journals)
+
+// Call to Action: Submit Article button
+
+// 2. 📚 Journals List /journals
+// Goal: Show all Journals in a grid or list
+
+// Each Journal card:
+
+// journal.name
+
+// Short description
+
+// Link to /journals/[slug]
+
+// 3. 📖 Single Journal View /journals/[slug]
+// Goal: Show volumes & issues of this journal
+
+// Example:
+
+// Nigerian Law Journal
+// ISSN: 1234-5678
+
+// Volume List (like accordions or tabs):
+// Volume 1 (2023)
+
+// Issue 1: “January Issue” → /journals/nigerian-law-journal/vol-1/iss-1
+
+// Issue 2: “April Issue”
+
+// Volume 2 (2024)
+
+// Issue 1…
+
+// Also show:
+
+// “About this Journal”
+
+// Submission Guidelines
+
+// Button: Submit Article to this Journal
+
+// 4. 🗞️ Issue Page /journals/[slug]/vol-[v]/iss-[i]
+// Goal: Show all Articles in this specific issue
+
+// Header: Vol 1, Issue 2 (April 2024)
+
+// Article List:
+
+// Title
+
+// Authors
+
+// Abstract snippet
+
+// Download PDF or Read More → /articles/[slug]
+
+// 5. 📄 Article Detail Page /articles/[slug]
+// Goal: Show article content
+
+// Title
+
+// Authors
+
+// Abstract
+
+// “Download PDF”
+
+// Journal / Volume / Issue it belongs to
+
+// Submission Date
+
+// 6. ✍️ Submit Article Page /submit
+// Goal: Let publishers submit articles
+
+// Form:
+// Select Journal
+
+// Select Volume & Issue (optional — admin can assign later)
+
+// Title
+
+// Authors
+
+// Abstract
+
+// Upload PDF
+
+// Optional: Payment proof (e.g., transaction ID)
+
+// ✅ Show their submission status in a dashboard
+
+// 7. 👤 User Dashboard /dashboard
+// For publishers:
+
+// List of submitted articles
+
+// Title
+
+// Status (SUBMITTED, PUBLISHED, etc.)
+
+// Download PDF
+
+// Date
+
+// 🧠 How to Think About It Visually
+// Type	Users See As	Purpose
+// Journal	A publication	Main platform or discipline
+// Volume	Year of issues	Time-based organization
+// Issue	Edition or quarter	Article container
+// Article	Paper	What users upload + read
+
